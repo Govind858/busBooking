@@ -1,0 +1,209 @@
+/* Global Reset and Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-wrapper {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    position: relative;
+  }
+  
+  /* Logo Styling */
+  .navbar-logo .app-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+  }
+  
+  .navbar-logo .highlight {
+    color: #fbbf24;
+  }
+  
+  /* Mobile Menu Toggle */
+  .mobile-menu-toggle {
+    display: none;
+    cursor: pointer;
+    color: #4b5563;
+  }
+  
+  /* Navigation Menu */
+  .navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  /* Navigation Links */
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6b7280;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-item:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+  }
+  
+  .nav-item.active {
+    background-color: #fbbf24;
+    color: black;
+  }
+  
+  .nav-item svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  
+  /* User Profile Section */
+  .navbar-user-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .user-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-name {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 0.95rem;
+  }
+  
+  .user-email {
+    font-size: 0.8rem;
+    color: #6b7280;
+  }
+  
+  /* User Actions */
+  .user-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .user-action-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6b7280;
+    text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .user-action-item:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+  }
+  
+  .user-action-item svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .navbar-container {
+      flex-wrap: wrap;
+      position: relative;
+    }
+  
+    .mobile-menu-toggle {
+      display: block;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  
+    .navbar-logo {
+      width: 100%;
+      text-align: center;
+    }
+  
+    .navbar-menu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      gap: 1rem;
+    }
+  
+    .navbar-menu.menu-open {
+      display: flex;
+    }
+  
+    .navbar-links {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .nav-item {
+      justify-content: flex-start;
+      padding: 1rem;
+    }
+  
+    .navbar-user-section {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+    }
+  
+    .user-profile {
+      justify-content: center;
+      text-align: center;
+    }
+  
+    .user-details {
+      align-items: center;
+    }
+  
+    .user-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .user-action-item {
+      justify-content: center;
+    }
+  }
