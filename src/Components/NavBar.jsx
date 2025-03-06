@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Home, 
   Ticket, 
-  MapPin, 
   User, 
   Settings, 
   LogOut, 
@@ -20,15 +20,14 @@ const NavBar = () => {
       id: 'home', 
       icon: <Home />, 
       label: 'Home',
-      link: '/home'
+      link: '/userHome'
     },
     { 
-      id: 'tickets', 
+      id: 'history', 
       icon: <Ticket />, 
       label: 'My Tickets',
-      link: '/tickets'
+      link: '/history'
     },
-
     { 
       id: 'profile', 
       icon: <User />, 
@@ -46,7 +45,7 @@ const NavBar = () => {
     { 
       icon: <LogOut />, 
       label: 'Logout',
-      link: '/logout'
+      link: '/'
     }
   ];
 
@@ -56,8 +55,7 @@ const NavBar = () => {
 
   const handleNavClick = (id) => {
     setActiveNav(id);
-    // Add navigation logic here
-    console.log(`Navigating to ${id}`);
+    setIsMenuOpen(false);
   };
 
   return (
@@ -80,43 +78,29 @@ const NavBar = () => {
           {/* Main Navigation Links */}
           <div className="navbar-links">
             {navItems.map((item) => (
-              <a 
+              <Link 
                 key={item.id}
-                href={item.link}
+                to={item.link}
                 className={`nav-item ${activeNav === item.id ? 'active' : ''}`}
                 onClick={() => handleNavClick(item.id)}
               >
                 {item.icon}
                 <span>{item.label}</span>
-              </a>
+              </Link>
             ))}
           </div>
 
-          {/* User Profile Section */}
           <div className="navbar-user-section">
-            {/* <div className="user-profile">
-              <img 
-                src="https://cdn-icons-png.freepik.com/256/1077/1077114.png?semt=ais_hybrid" 
-                alt="User Profile" 
-                className="user-avatar" 
-              />
-              <div className="user-details">
-                <p className="user-name">John Doe</p>
-                <p className="user-email">john.doe@example.com</p>
-              </div>
-            </div> */}
-
-            {/* User Menu Items */}
             <div className="user-actions">
               {userMenuItems.map((item, index) => (
-                <a 
+                <Link 
                   key={index} 
-                  href={item.link} 
+                  to={item.link} 
                   className="user-action-item"
                 >
                   {item.icon}
                   <span>{item.label}</span>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
