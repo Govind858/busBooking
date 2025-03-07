@@ -1,9 +1,8 @@
+import React from 'react'
+import BookingHistory from '../BusDriver/Components/BookingHistory'
+import DriverNavbar from '../BusDriver/Components/DriverNavBar';
 
-import DriverDashboard from '../BusDriver/Components/DriverDashboard'
-import DriverNavbar from '../BusDriver/Components/DriverNavBar'
-import TodaysBooking from '../BusDriver/Components/TodaysBooking'
-
-function DriverHome() {
+function BookingHistoryPage() {
   const bookingsData = [
     {
       id: 1,
@@ -26,12 +25,10 @@ function DriverHome() {
   ];
   return (
     <div>
-       <DriverNavbar/>
-       <DriverDashboard/>
-       <TodaysBooking bookings={bookingsData}/>
-    
+        <DriverNavbar/>
+        <BookingHistory bookings={bookingsData}/>
     </div>
   )
 }
 
-export default DriverHome
+export default BookingHistoryPage
