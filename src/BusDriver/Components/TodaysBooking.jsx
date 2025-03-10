@@ -1,5 +1,6 @@
 import React from 'react'
 import "./BookingHistory.css"
+import qrCode from "../../assets/qr-code.png"
 
 function TodaysBooking({bookings}) {
   return (
@@ -40,6 +41,18 @@ function TodaysBooking({bookings}) {
                   </div>
                 </div>
               </div>
+
+          <div className="qr-container">
+              <span className="qr-text">Scan to verify</span>
+              <div className="qr-box">
+                <img 
+                  src={qrCode}
+                  alt="QR Code for Booking" 
+                  className="qr-image" 
+                />
+              </div>
+            </div>
+
               
               <div className="price-info">
                 <span className="label">Ticket Price</span>

@@ -8,6 +8,7 @@ import BusRegistration from './Page/BusRegistration'
 import TripsPage from './Page/TripsPage'
 import BookingHistoryPage from './Page/BookingHistoryPage'
 import DriverDashboardPage from './Page/DriverDashboardPage'
+import RevenuePage from './Page/RevenuePage'
 
 function App() {
   return (
@@ -18,9 +19,10 @@ function App() {
           <Route path="/userHome" element={<UserHome/>}/>
           <Route path="/driverHome" element={<DriverHome/>}/>
           <Route path='/busRegistration' element={<BusRegistration/>}/>
-          <Route path='tripsPage' element={<TripsPage/>}/>
+          <Route path='/tripsPage' element={<TripsPage/>}/>
           <Route path='/driversBooking' element={<BookingHistoryPage/>}/>
-          <Route path='driverDashboard' element={<DriverDashboardPage/>}/>
+          <Route path='/driverDashboard' element={<DriverDashboardPage/>}/>
+          <Route path='/revenuePage' element={<RevenuePage/>}/>
       </Routes>
     </>
   )
