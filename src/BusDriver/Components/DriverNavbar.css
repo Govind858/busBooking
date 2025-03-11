@@ -172,4 +172,248 @@
   .sidebar-overlay.open {
     display: block;
   }
-  
+
+
+/* old button */
+.qr-scan-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  padding: 4px;
+  position: relative;
+}
+
+
+
+.qr-button-text {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* You might need to adjust these existing styles to accommodate the new button */
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Hover effect */
+.qr-scan-button:hover {
+  color: #0066cc;
+}
+
+/* Optional: Add a subtle background on hover */
+.qr-scan-button:qr-scan-container{
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+
+/* QR Scanner Button */
+/* new button */
+/* .qr-scan-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+} */
+/* old hover */
+/* .qr-scan-button:hover {  
+  background-color: #e0e0e0;
+} */
+
+
+.qr-button-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* QR Scanner Container */
+.qr-scanner-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 350px;
+  max-width: 90vw;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.qr-scanner-container.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.qr-scanner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.qr-scanner-header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.close-camera-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-camera-button:hover {
+  background-color: #f0f0f0;
+}
+
+.camera-view {
+  position: relative;
+  height: 350px;
+  width: 100%;
+  background-color: #000;
+  overflow: hidden;
+}
+
+#qr-camera {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scan-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.scan-target {
+  width: 200px;
+  height: 200px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.scan-target::before,
+.scan-target::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-color: #4CAF50;
+  border-style: solid;
+  border-width: 0;
+}
+
+.scan-target::before {
+  top: -2px;
+  left: -2px;
+  border-top-width: 4px;
+  border-left-width: 4px;
+  border-top-left-radius: 18px;
+}
+
+.scan-target::after {
+  top: -2px;
+  right: -2px;
+  border-top-width: 4px;
+  border-right-width: 4px;
+  border-top-right-radius: 18px;
+}
+
+.scan-target::before,
+.scan-target::after {
+  animation: scanning 2s linear infinite;
+}
+
+@keyframes scanning {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.qr-scanner-footer {
+  padding: 15px 20px;
+  text-align: center;
+  border-top: 1px solid #eaeaea;
+}
+
+.qr-scanner-footer p {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Camera Overlay */
+.camera-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.camera-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+#side-bar-icons{
+  font-size: larger;
+}
+
+.qr-scan-container{
+  padding: 2px;
+  border-radius: 2px;
+  display: flex;
+  background-color: #F5F5F5;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scan-btn{
+  font-size: 28px;
+}

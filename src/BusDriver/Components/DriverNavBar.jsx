@@ -1,12 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfileDropdown from './ProfileDropdown';
+import { MdHistory } from "react-icons/md";
+import { CgArrowsExchange } from "react-icons/cg";
+import { TbReportAnalytics } from "react-icons/tb";
+import { IoQrCodeSharp } from "react-icons/io5";
+
 import './DriverNavbar.css'; // Import CSS file
 
 const DriverNavbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
   const profileRef = useRef(null);
+  const cameraRef = useRef(null);
   const navigate = useNavigate();
 
   const toggleSidebar = () => {
@@ -26,18 +33,66 @@ const DriverNavbar = () => {
     closeSidebar();
   };
 
+  // New function to toggle camera view
+  const toggleCamera = () => {
+    setIsCameraOpen(!isCameraOpen);
+    if (!isCameraOpen) {
+      // Start the camera when opening
+      startCamera();
+    } else {
+      // Stop the camera when closing
+      stopCamera();
+    }
+  };
+
+  // Function to start camera
+  const startCamera = () => {
+    const videoElement = document.getElementById('qr-camera');
+    if (videoElement && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+        .then(stream => {
+          videoElement.srcObject = stream;
+        })
+        .catch(error => {
+          console.error("Error accessing camera:", error);
+        });
+    }
+  };
+
+  // Function to stop camera
+  const stopCamera = () => {
+    const videoElement = document.getElementById('qr-camera');
+    if (videoElement && videoElement.srcObject) {
+      const tracks = videoElement.srcObject.getTracks();
+      tracks.forEach(track => track.stop());
+      videoElement.srcObject = null;
+    }
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (profileRef.current && !profileRef.current.contains(event.target)) {
         setIsProfileOpen(false);
+      }
+      
+      // Close camera if clicking outside the camera container
+      if (cameraRef.current && !cameraRef.current.contains(event.target) && 
+          !event.target.closest('.qr-scan-button')) {
+        if (isCameraOpen) {
+          toggleCamera();
+        }
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      // Clean up camera when component unmounts
+      if (isCameraOpen) {
+        stopCamera();
+      }
     };
-  }, [profileRef]);
+  }, [profileRef, cameraRef, isCameraOpen]);
 
   return (
     <>
@@ -55,6 +110,15 @@ const DriverNavbar = () => {
         </div>
         
         <div className="navbar-right">
+          
+          {/* QR Code Scanner Button */}
+          <div className="qr-scan-container">
+            <button className="qr-scan-button" aria-label="Scan QR Code" onClick={toggleCamera}>
+            < IoQrCodeSharp className='scan-btn' />
+            </button>
+            <span className="qr-button-text">scan</span>
+          </div>
+          
           <button className="notification-button" aria-label="Notifications">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -76,15 +140,40 @@ const DriverNavbar = () => {
       <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-content">
           <div className="sidebar-menu">
-            <div className="sidebar-menu-item" onClick={() => handleNavigation('/tripsPage')}>Trips</div>
-            <div className="sidebar-menu-item" onClick={() => handleNavigation('/driversBooking')}>Booking History</div>
-            <div className="sidebar-menu-item" onClick={() => handleNavigation('/revenue')}>Revenue</div>
+            <div className="sidebar-menu-item" onClick={() => handleNavigation('/tripsPage')}> <CgArrowsExchange id='side-bar-icons' />
+            Trips</div>
+            <div className="sidebar-menu-item" onClick={() => handleNavigation('/driversBooking')}><MdHistory id='side-bar-icons' />Booking History</div>
+            <div className="sidebar-menu-item" onClick={() => handleNavigation('/revenuePage')}>  <TbReportAnalytics id='side-bar-icons' />
+            Revenue</div>
           </div>
+        </div>
+      </div>
+      
+      {/* QR Scanner Camera View */}
+      <div ref={cameraRef} className={`qr-scanner-container ${isCameraOpen ? 'open' : ''}`}>
+        <div className="qr-scanner-header">
+          <h3>Scan QR Code</h3>
+          <button className="close-camera-button" onClick={toggleCamera}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div className="camera-view">
+          <video id="qr-camera" autoPlay playsInline></video>
+          <div className="scan-overlay">
+            <div className="scan-target"></div>
+          </div>
+        </div>
+        <div className="qr-scanner-footer">
+          <p>Position the QR code within the frame to scan</p>
         </div>
       </div>
       
       {/* Overlay */}
       <div className={`sidebar-overlay ${isSidebarOpen ? 'open' : ''}`} onClick={closeSidebar}></div>
+      <div className={`camera-overlay ${isCameraOpen ? 'open' : ''}`} onClick={toggleCamera}></div>
     </>
   );
 };
