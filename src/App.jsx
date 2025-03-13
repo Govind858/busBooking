@@ -2,6 +2,7 @@ import React from 'react'
 import BusTicketHomeScreen from './Page/Home'
 import AuthPage from './Components/AuthPage'
 import UserHome from './Page/UserHome'
+import TicketHistory from './Page/TicketHistory'
 import { Routes, Route } from "react-router-dom"
 import DriverHome from './Page/DriverHome'
 import BusRegistration from './Page/BusRegistration'
@@ -23,7 +24,15 @@ function App() {
           <Route path='/driversBooking' element={<BookingHistoryPage/>}/>
           <Route path='/driverDashboard' element={<DriverDashboardPage/>}/>
           <Route path='/revenuePage' element={<RevenuePage/>}/>
+            
+            <Route path="/user" element={<BusTicketHomeScreen/>}/>
+            <Route path="/user/login" element={<AuthPage/>}/>
+            <Route path="/user/userHome" element={<UserHome/>}/>
+            <Route path="/user/history" element={<TicketHistory/>}/>
+            <Route path="/user/profile" element={<ProfilePage/>}/>
       </Routes>
+
+
     </>
   )
 }
