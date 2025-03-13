@@ -34,30 +34,39 @@ const DriverNavbar = () => {
   };
 
   // New function to toggle camera view
-  const toggleCamera = () => {
-    setIsCameraOpen(!isCameraOpen);
-    if (!isCameraOpen) {
-      // Start the camera when opening
-      startCamera();
-    } else {
-      // Stop the camera when closing
-      stopCamera();
-    }
-  };
+ // Add this to your toggleCamera function
+const toggleCamera = () => {
+  setIsCameraOpen(!isCameraOpen);
+  if (!isCameraOpen) {
+    // Start the camera when opening
+    startCamera().catch(err => {
+      console.error("Failed to start camera:", err);
+      alert("Could not access camera. Please check permissions.");
+      setIsCameraOpen(false); // Close the camera view if failed
+    });
+  } else {
+    // Stop the camera when closing
+    stopCamera();
+  }
+};
 
   // Function to start camera
-  const startCamera = () => {
-    const videoElement = document.getElementById('qr-camera');
-    if (videoElement && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
-        .then(stream => {
-          videoElement.srcObject = stream;
-        })
-        .catch(error => {
-          console.error("Error accessing camera:", error);
-        });
-    }
-  };
+// Modify the startCamera function
+const startCamera = () => {
+  const videoElement = document.getElementById('qr-camera');
+  if (videoElement && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Remove the facingMode constraint for laptops
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        videoElement.srcObject = stream;
+      })
+      .catch(error => {
+        console.error("Error accessing camera:", error);
+        // Show error message to user
+        alert("Camera access failed. Please check permissions or try another browser.");
+      });
+  }
+};
 
   // Function to stop camera
   const stopCamera = () => {
